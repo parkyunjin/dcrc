@@ -59,42 +59,38 @@ for (theta in thetas) {
   for (x_int in xints) {
     print(paste0("Theta is ", theta, " degrees and x-intercept is ", x_int))
     
-    # Define boundary: line crosses x-axis at x_int, i.e., y = slope * (x - x_int)
-    #boundary <- function(x) slope * (x - x_int)
+    
     x_boundary <- function(y) y / slope + x_int
     
-    
-    # Create a logical mask for elements that satisfy the condition
-    #mask <- sqrtmin_matrix < boundary(nrc_matrix)
     mask <- nrc_matrix > x_boundary(sqrtmin_matrix)
     
     
     # Apply the mask to filter values in nrc_matrix
     filtered_nrc <- as.matrix(nrc_matrix)
     filtered_nrc[!mask] <- NA 
-    filtered_adj_matrix <- as.matrix(original_adj_matrix)  # Copy original
-    filtered_adj_matrix[!mask] <- 0  # Apply mask without modifying original
+    filtered_adj_matrix <- as.matrix(original_adj_matrix) 
+    filtered_adj_matrix[!mask] <- 0  
     
     # Check if locations of NA in filtered_nrc match 0 in filtered_adj_matrix
     sanity_check <- which(is.na(filtered_nrc)) == which(filtered_adj_matrix == 0)
     
     # Print result
     if (all(sanity_check, na.rm = TRUE)) {
-      print("✅ Sanity check passed: NA locations in filtered_nrc match 0 locations in filtered_adj_matrix!")
+      print("Sanity check passed: NA locations in filtered_nrc match 0 locations in filtered_adj_matrix!")
     } else {
-      print("⚠️ Sanity check failed: Some locations do not match!")
+      print("Sanity check failed: Some locations do not match!")
     }
     
-    # Convert 'membership' edge attribute into a node-based vector
-    node_membership <- V(g)$membership  # Assuming membership is node-based
     
-    # Construct a "same group" adjacency matrix
-    same_group_matrix <- outer(node_membership, node_membership, FUN = "==")  # Logical comparison
+    node_membership <- V(g)$membership  
+    
+   
+    same_group_matrix <- outer(node_membership, node_membership, FUN = "==")  
     
     # Count total red (Different) and blue (Same) edges before filtering
     total_red <- sum(same_group_matrix == 0 & original_adj_matrix > 0, na.rm = TRUE)
     total_blue <- sum(same_group_matrix == 1 & original_adj_matrix > 0, na.rm = TRUE)
-    total_edges <- sum(original_adj_matrix > 0, na.rm = TRUE)  # Total edges before filtering
+    total_edges <- sum(original_adj_matrix > 0, na.rm = TRUE)  
     
     # Count remaining red and blue edges after filtering
     remaining_red <- sum(same_group_matrix == 0 & filtered_adj_matrix > 0, na.rm = TRUE)
@@ -115,7 +111,7 @@ for (theta in thetas) {
     ))
     
     # Save the filtered adjacency matrix with updated naming
-    writeMat(paste0("/Users/bag-yunjin/Desktop/simul/simul_1000/adj/adj_matrix_theta_", round(theta, 2), "_xint_", round(x_int, 4), ".mat"), adj_matrix = filtered_adj_matrix)
+    writeMat(paste0("/adj_matrix_theta_", round(theta, 2), "_xint_", round(x_int, 4), ".mat"), adj_matrix = filtered_adj_matrix)
     
     # Graph comparison check
     graph_diff <- !all(filtered_adj_matrix == original_adj_matrix, na.rm = TRUE)
@@ -148,13 +144,12 @@ for (theta in thetas) {
     }
     
     # Generate and save plots for each combination with updated labels
-    plot_filename <- paste0("/Users/bag-yunjin/Desktop/simul/simul_1000/fig/boundary_plot_theta_", round(theta, 2), "_xint_", round(x_int, 4), ".pdf")
+    plot_filename <- paste0("/boundary_plot_theta_", round(theta, 2), "_xint_", round(x_int, 4), ".pdf")
     pdf(plot_filename)
     
     plot <- ggplot(plot_data, aes(x = nrc, y = sqrtmin, color = same_group)) +
       geom_point(aes(shape = factor(shape_type)), alpha = 0.7, stroke = 1.1, size = 3) +  
       geom_abline(slope = slope, intercept = -slope * x_int, color = "blue", linewidth = 1.2) +
-      #coord_fixed() +  # Forces a 1:1 aspect ratio
       labs(
         title = paste("Decision Boundary - Theta:", round(theta, 2), "°", "x-intercept:", round(x_int, 4)),
         subtitle = paste("Removed Red Ratio:", round(removed_red_ratio, 3),
