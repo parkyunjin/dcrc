@@ -94,9 +94,5 @@ catch ME
         % Handle the error
         fprintf('Iteration %d failed: %s', i, ME.message);
 
-        % Optionally, log more details about the error
-        % fprintf('Error occurred in: %s (line %d)', ME.stack(1).file, ME.stack(1).line);
-
-        % Continue to the next iteration
     end
 end
