@@ -40,7 +40,7 @@ for (seed in 123:223){
   n6 <- generate_dcsbm(n = 300, gamma = c(0.04, 0.07, 0.11, 0.14, 0.18, 0.21, 0.25, 0.29) , alpha1 = 0.5, alpha2 = 1.5, B3, seed)
 
   
-  # Calculate FRC, LRC, NRC
+  # Calculate FRC, LRC, NRC, Jac_coef
   n1_g <- cal_linear_curv(n1$graph)
   n2_g <- cal_linear_curv(n2$graph)
   n3_g <- cal_linear_curv(n3$graph)
