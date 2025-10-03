@@ -34,7 +34,6 @@ compute_En_i <- function(theta, z, P) {
     ez <- one_hot(z[i], K)
     eta_term <- as.numeric(t(ez) %*% P %*% eta)
     En_i[i] <- (1 / K) * theta[i] * theta1_norm * eta_term - theta[i]^2
-    #En_i[i] <- (1 / K) * theta[i] * theta1_norm * eta_term
   }
   return(En_i)
 }
@@ -54,7 +53,6 @@ compute_En_ij <- function(i, j, theta, z, P) {
   penalty_term <- (theta[i]^2 + theta[j]^2) * P[z[i], z[j]]
   
   En_ij <- theta[i] * theta[j] * theta2_norm * triple_term - theta[i] * theta[j] * penalty_term
-  #En_ij <- theta[i] * theta[j] * theta2_norm * triple_term 
   return(En_ij)
 }
 
@@ -118,7 +116,7 @@ plot_all_diffs <- function(theta_range = seq(0.1, 3.0, length.out = 1000), save_
   
   for (val in theta_range) {
     theta <- rep(1, 2 * n)
-    theta[n + 1] <- val  # vary this one only
+    theta[n + 1] <- val  
     
     frc_val <- FRC_diff(i, j, k, theta, z, P) / 200
     lrc_val <- LRC_diff(i, j, k, theta, z, P)
@@ -158,8 +156,8 @@ plot_all_diffs <- function(theta_range = seq(0.1, 3.0, length.out = 1000), save_
           legend.text = element_text(size = 25),
           legend.key.width = unit(2.5, "cm"))+
     scale_color_manual( 
-      values = c("FRC" = "#00BA38", "DCRC" = "#F8766D", "LRC" = "#619CFF"),# Assign colors
-      breaks = c("FRC", "LRC", "DCRC")  # Order in legend
+      values = c("FRC" = "#00BA38", "DCRC" = "#F8766D", "LRC" = "#619CFF"),
+      breaks = c("FRC", "LRC", "DCRC")  
     )
   
   ggsave(save_path, p, width = 10, height = 6)
@@ -167,5 +165,4 @@ plot_all_diffs <- function(theta_range = seq(0.1, 3.0, length.out = 1000), save_
   return(results)
 }
 
-# Run and save
 plot_all_diffs()
