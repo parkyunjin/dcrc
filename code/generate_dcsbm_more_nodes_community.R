@@ -26,10 +26,8 @@ B3 <- matrix(0.3, nrow = 8, ncol = 8)
 diag(B3) <- 0.6
 
 
-seed <- 123 # in the paper
 
-# following is for the rebuttal
-for (seed in 123:(123+9)){
+for (seed in 123:223){
   
   # Generate three graphs
   # More nodes
