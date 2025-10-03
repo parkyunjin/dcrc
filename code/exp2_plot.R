@@ -53,7 +53,7 @@ p <- ggplot(combined_df, aes(x = p, y = value, color = metric)) +
   theme_minimal()
 
 # Set where to save the files
-setwd("/work/users/y/j/yjinpark/Tracy/experiment_1/results_percentile")
+setwd("/results_percentile")
 
 # Save plot as PDF
 ggsave("algorithm_performance_plot.pdf", plot = p, width = 10, height = 6)
