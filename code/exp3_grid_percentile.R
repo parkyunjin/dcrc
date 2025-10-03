@@ -11,8 +11,7 @@ library(ggplot2)
 library(R.matlab)
 
 
-# following loop is for the rebuttal
-for (seed in 145:(123+49)){
+for (seed in 123:(223)){
   workingdir <- paste0("/s_", seed)
   setwd(workingdir)
   print(paste0("Working for seed=", seed))
