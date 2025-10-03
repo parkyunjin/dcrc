@@ -23,7 +23,7 @@ for (seed in 123:(223)){
   graph_ids <- paste0("graph_n", c(1,2,3,4,5,6), "_curved")
   
   # List of curvature attributes to process
-  curvatures <- c("nrc", "lrc", "frc", "bfc", "jac_coef")
+  curvatures <- c("nrc", "lrc", "frc", "bfc")
   
   # Main loop over each graph
   for (graph_basename in graph_ids) {
