@@ -13,7 +13,7 @@ library(R.matlab)
 # Set working directory
 
 
-# following loop is for the rebuttal
+
 for (seed in 123:(132)){
   workingdir <- paste0("/s_", seed)
   setwd(workingdir)
