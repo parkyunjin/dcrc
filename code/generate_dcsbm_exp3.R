@@ -26,19 +26,18 @@ B3 <- matrix(c(0.9, 0.3, 0.3,
               0.3, 0.9, 0.3,
               0.3, 0.3, 0.9), 
             nrow = 3, byrow = TRUE) 
-seed <- 123 # in the paper
 
-# following is for the rebuttal
-for (seed in 123:(123+49)){
+
+for (seed in 123:223){
 
   # Generate three graphs
   n1 <- generate_dcsbm(n = 150, gamma = c(0.1, 0.2, 0.7), alpha1 = 0.5, alpha2 = 1.5, B1, seed)
   n2 <- generate_dcsbm(n = 150, gamma = c(0.1, 0.2, 0.7), alpha1 = 0.5, alpha2 = 1.5, B2, seed)
   n3 <- generate_dcsbm(n = 150, gamma = c(0.1, 0.2, 0.7), alpha1 = 0.5, alpha2 = 1.5, B3, seed)
-  n4 <- generate_dcsbm(n = 150, gamma = c(0.1, 0.2, 0.7), alpha1 = 0.5, alpha2 = 2.5, B3, seed) #previous 0.6, 0.3
-  n5 <- generate_dcsbm(n = 150, gamma = c(0.1, 0.2, 0.7), alpha1 = 0.1, alpha2 = 0.8, B3, seed) #previous 0.6, 0.3
-  n6 <- generate_dcsbm(n = 150, gamma = c(0.1, 0.2, 0.7), alpha1 = 0.5, alpha2 = 2.5, B1, seed) #previous 0.6, 0.3
-  n7 <- generate_dcsbm(n = 150, gamma = c(0.1, 0.2, 0.7), alpha1 = 0.1, alpha2 = 0.8, B1, seed) #previous 0.6, 0.3
+  n4 <- generate_dcsbm(n = 150, gamma = c(0.1, 0.2, 0.7), alpha1 = 0.5, alpha2 = 2.5, B3, seed) 
+  n5 <- generate_dcsbm(n = 150, gamma = c(0.1, 0.2, 0.7), alpha1 = 0.1, alpha2 = 0.8, B3, seed) 
+  n6 <- generate_dcsbm(n = 150, gamma = c(0.1, 0.2, 0.7), alpha1 = 0.5, alpha2 = 2.5, B1, seed) 
+  n7 <- generate_dcsbm(n = 150, gamma = c(0.1, 0.2, 0.7), alpha1 = 0.1, alpha2 = 0.8, B1, seed) 
   
   # Calculate FRC, LRC, NRC
   n1_g <- cal_linear_curv(n1$graph)
