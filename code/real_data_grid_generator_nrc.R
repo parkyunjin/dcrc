@@ -138,7 +138,7 @@ for (theta in thetas) {
     all_removed <- all(removed_mask)  
     
     # Determine shape based on edge status
-    plot_data$shape_type <- ifelse(removed_mask, "Removed", "Kept")  # Default: 21 (hollow) for removed, 16 (filled) for kept
+    plot_data$shape_type <- ifelse(removed_mask, "Removed", "Kept")  # 21 (hollow) for removed, 16 (filled) for kept
     if (all_removed) {
       plot_data$shape_type <- "Removed"
     }
