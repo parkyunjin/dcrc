@@ -97,15 +97,11 @@ for k = 1:length(matFiles)
         mkdir(resultsFolder);
     end
     save(fullfile(resultsFolder, ['result_' fileName]), 'community_labels');
-    
-    % Optionally save or process `community_labels` here
+
     disp(['Successfully processed file: ', fileName]);
 
     catch ME
         % Handle the error
         fprintf('Processing file %s failed: %s', fileName, ME.message);
-
-        % Optionally log additional error details
-        % fprintf('Error occurred in: %s (line %d)', ME.stack(1).file, ME.stack(1).line);
     end
 end
